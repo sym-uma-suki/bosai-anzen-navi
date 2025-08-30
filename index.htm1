@@ -3,37 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>防災・安心ナビ</title>
+  <title>防災安心ナビ</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
-  <h1>防災・安心ナビ</h1>
-  <p>これはテスト版です。避難情報や防災チェックリストをここに表示します。</p>
+  <header>
+    <h1 id="title">防災安心ナビ</h1>
+    <button onclick="toggleLanguage()">日本語 / English</button>
+  </header>
 
-  <button onclick="sendSOS()">SOS送信</button>
-  <p id="status"></p>
+  <main>
+    <div id="map"></div>
+    <button onclick="getLocation()">現在地を表示</button>
+    <button onclick="showShelters()">避難所を表示</button>
+  </main>
 
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
-body {
-  font-family: sans-serif;
-  margin: 20px;
-  background: #f0f8ff;
-  color: #333;
-}
-
-h1 {
-  color: #d9534f;
-}
-
-button {
-  padding: 10px 20px;
-  background: #0275d8;
-  color: white;
-  border: none;
-  border-radius: 5px;
-}
-function sendSOS() {
-  document.getElementById("status").textContent = "📡 SOSを送信しました！（ダミー）";
-}
