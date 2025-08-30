@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>防災安心ナビ - 家族安心ページ</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="family.js"></script>
+</head>
+<body>
+  <h1>防災安心ナビ 🛡️</h1>
+  <h2>家族の状況</h2>
+  <div id="familyList"></div>
+
+  <h2>AI安心メッセージ</h2>
+  <select id="statusSelect">
+    <option value="home">自宅で待機</option>
+    <option value="shelter">避難所に到着</option>
+    <option value="moving">避難中（移動中）</option>
+  </select>
+  <button onclick="generateMessage()">メッセージを提案</button>
+  
+  <div id="messageArea"></div>
+  <button onclick="sendMessage()">家族に送信（デモ）</button>
+</body>
+</html>
