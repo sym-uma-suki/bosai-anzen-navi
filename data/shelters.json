@@ -1,0 +1,4 @@
+[
+  {"name":"中央区立 第一避難所","lat":35.6809591,"lng":139.7673068,"capacity":1200,"barrier_free":true,"crowd":"空きあり"},
+  {"name":"千代田区立 第二避難所","lat":35.693840,"lng":139.703549,"capacity":800,"barrier_free":true,"crowd":"混雑"}
+]
