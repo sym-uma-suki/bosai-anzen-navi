@@ -1,52 +1,108 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<title>防災安心ナビ</title>
-<link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <meta charset="UTF-8">
+  <title>防災安心ナビ 🛡️</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f7f9fc;
+    }
+    h1 { color: #2c3e50; }
+    h2 { color: #34495e; margin-top: 20px; }
+    #familyList div {
+      margin: 5px 0;
+      padding: 8px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    #messageArea {
+      margin-top: 10px;
+      padding: 10px;
+      background: #eaf5ff;
+      border: 1px solid #b3d7ff;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+  </style>
 </head>
 <body>
-  <div id="app">
-    <header class="topbar">
-      <div class="brand">🛡 防災安心ナビ</div>
-      <div class="controls">
-        <button id="langBtn" class="icon-btn">JP/EN</button>
-        <button id="installBtn" class="ghost" style="display:none;">Install</button>
-      </div>
-    </header>
+  <h1>防災安心ナビ 🛡️</h1>
 
-    <main>
-      <section class="panel">
-        <div id="map" class="map"></div>
-        <div class="actions">
-          <button class="btn" id="locBtn">現在地を表示</button>
-          <button class="btn secondary" id="shelterBtn">避難所表示</button>
-          <button class="btn warn" id="sosBtn">SOS</button>
-        </div>
-      </section>
+  <h2>家族の状況</h2>
+  <div id="familyList"></div>
 
-      <section class="panel small">
-        <h3 id="statusTitle">状況</h3>
-        <div id="statusCard" class="status-card">最新の速報はありません（デモ）</div>
-      </section>
+  <h2>AI安心メッセージ</h2>
+  <select id="statusSelect">
+    <option value="home">自宅で待機</option>
+    <option value="shelter">避難所に到着</option>
+    <option value="moving">避難中（移動中）</option>
+  </select>
+  <button onclick="generateMessage()">メッセージを提案</button>
+  
+  <div id="messageArea">ここに提案が表示されます</div>
+  <button onclick="sendMessage()">家族に送信（デモ）</button>
 
-      <section class="panel">
-        <h3>防災チェックリスト</h3>
-        <ul id="checklist" class="list"></ul>
-        <button id="shareChecklist" class="btn">家族と共有</button>
-      </section>
-    </main>
+  <script>
+    // 家族データ（仮）
+    const family = [
+      { name: "お母さん", battery: 68, location: "自宅" },
+      { name: "お父さん", battery: 32, location: "避難所" },
+      { name: "子供", battery: 15, location: "移動中" }
+    ];
 
-    <footer class="footer">
-      <span id="safetyBadge" class="badge caution">安全レベル: 注意</span>
-      <a id="helpLink" class="small" href="#">地域支援</a>
-    </footer>
-  </div>
+    // 家族リストを表示
+    function renderFamily() {
+      const listDiv = document.getElementById("familyList");
+      listDiv.innerHTML = "";
+      family.forEach(member => {
+        const div = document.createElement("div");
+        div.textContent = `${member.name} - 電池残量 ${member.battery}% - 場所: ${member.location}`;
+        if (member.battery < 20) div.style.color = "red"; // 残量少ない人は赤文字
+        listDiv.appendChild(div);
+      });
+    }
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="app.js"></script>
+    // AI安心メッセージを生成
+    function generateMessage() {
+      const status = document.getElementById("statusSelect").value;
+      let msg = "";
+
+      if (status === "home") {
+        msg = "現在自宅で安全に待機しています。心配しないでください。";
+      } else if (status === "shelter") {
+        msg = "無事に避難所に到着しました。安心してください。";
+      } else if (status === "moving") {
+        msg = "避難中ですが、安全に移動しています。連絡はまたします。";
+      }
+
+      document.getElementById("messageArea").innerText = "提案: " + msg;
+      window.generatedMessage = msg;
+    }
+
+    // 送信（デモ用）
+    function sendMessage() {
+      if (window.generatedMessage) {
+        alert("家族に送信しました（デモ）:\n" + window.generatedMessage);
+      } else {
+        alert("まずメッセージを生成してください。");
+      }
+    }
+
+    renderFamily();
+  </script>
 </body>
 </html>
