@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <link rel="manifest" href="manifest.json">
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js");
+  }
+</script>
   <meta charset="UTF-8">
   <title>防災安心ナビ 🛡️</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
